@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,34 +7,161 @@
   <meta name="theme-color" content="#080b16" />
   <title>ROLL RUSH 2</title>
 </head>
+
 <body>
   <div id="game"></div>
+
   <main id="app">
+
     <section id="home" class="screen">
       <div class="logo">RR<span>2</span></div>
       <p class="eyebrow">ROLL · JUMP · EXPLORE</p>
       <h1>ROLL RUSH <em>2</em></h1>
       <p class="subtitle">Four worlds. Endless speed.</p>
+
       <div class="wallet">◈ <b id="home-coins">0</b> COINS</div>
+
       <div class="section-label">CHOOSE YOUR WORLD</div>
       <div id="level-list" class="level-list"></div>
+
       <div class="section-label">DIFFICULTY</div>
       <div class="difficulty" id="difficulty-list">
-        <button class="diff selected" data-diff="easy">EASY</button><button class="diff" data-diff="medium">MEDIUM</button><button class="diff" data-diff="hard">HARD</button><button class="diff" data-diff="extreme">EXTREME</button>
+        <button class="diff selected" data-diff="easy">EASY</button>
+        <button class="diff" data-diff="medium">MEDIUM</button>
+        <button class="diff" data-diff="hard">HARD</button>
+        <button class="diff" data-diff="extreme">EXTREME</button>
       </div>
-      <button id="play" class="primary">START RUN <span>→</span></button>
-      <div class="menu-actions"><button id="shop-open">BALL SHOP</button><button id="sound-toggle">SOUND: ON</button></div>
-      <p class="footer-note">DRAG LEFT / RIGHT TO STEER · TAP TO JUMP</p>
+
+      <button id="play" class="primary">
+        START RUN <span>→</span>
+      </button>
+
+      <div class="menu-actions">
+        <button id="shop-open">BALL SHOP</button>
+        <button id="sound-toggle">SOUND: ON</button>
+      </div>
+
+      <p class="footer-note">
+        DRAG LEFT / RIGHT TO STEER · TAP TO JUMP
+      </p>
     </section>
+
     <section id="hud" class="hud hidden">
-      <div class="hud-top"><div><small>WORLD</small><b id="hud-world">ORIGINAL</b></div><div class="hud-center"><small>TIME</small><b id="timer">00:00</b></div><div><small>COINS</small><b>◈ <span id="run-coins">0</span></b></div><button id="pause" aria-label="Pause">Ⅱ</button></div>
-      <div class="speed-box"><small>SPEED</small><b id="speed">1.0x</b></div>
-      <div class="touch-hint">DRAG TO STEER · TAP TO JUMP</div>
+      <div class="hud-top">
+        <div>
+          <small>WORLD</small>
+          <b id="hud-world">ORIGINAL</b>
+        </div>
+
+        <div class="hud-center">
+          <small>TIME</small>
+          <b id="timer">00:00</b>
+        </div>
+
+        <div>
+          <small>COINS</small>
+          <b>◈ <span id="run-coins">0</span></b>
+        </div>
+
+        <button id="pause" aria-label="Pause">Ⅱ</button>
+      </div>
+
+      <div class="speed-box">
+        <small>SPEED</small>
+        <b id="speed">1.0x</b>
+      </div>
+
+      <div class="touch-hint">
+        DRAG TO STEER · TAP TO JUMP
+      </div>
     </section>
-    <section id="pause-screen" class="overlay hidden"><div class="panel"><p class="eyebrow">TAKE A BREATHER</p><h2>PAUSED</h2><button id="resume" class="primary">RESUME</button><button id="quit" class="secondary">QUIT RUN</button></div></section>
-    <section id="gameover" class="overlay hidden"><div class="panel"><p class="eyebrow">RUN COMPLETE</p><h2 id="over-title">GAME OVER</h2><div class="stat-big" id="final-time">00:00</div><p class="muted">TIME SURVIVED</p><div class="earned">◈ +<b id="earned">0</b> COINS</div><button id="retry" class="primary">PLAY AGAIN ↻</button><button id="home" class="secondary">MAIN MENU</button></div></section>
-    <section id="shop" class="overlay hidden"><div class="panel shop-panel"><button class="close" id="shop-close">×</button><p class="eyebrow">CUSTOMISE YOUR ROLL</p><h2>BALL SHOP</h2><div class="wallet shop-wallet">◈ <b id="shop-coins">0</b> COINS</div><div id="skin-list" class="skin-list"></div></div></section>
+
+    <section id="pause-screen" class="overlay hidden">
+      <div class="panel">
+        <p class="eyebrow">TAKE A BREATHER</p>
+        <h2>PAUSED</h2>
+        <button id="resume" class="primary">RESUME</button>
+        <button id="quit" class="secondary">QUIT RUN</button>
+      </div>
+    </section>
+
+    <section id="gameover" class="overlay hidden">
+      <div class="panel">
+        <p class="eyebrow">RUN COMPLETE</p>
+        <h2 id="over-title">GAME OVER</h2>
+
+        <div class="stat-big" id="final-time">00:00</div>
+        <p class="muted">TIME SURVIVED</p>
+
+        <div class="earned">
+          ◈ +<b id="earned">0</b> COINS
+        </div>
+
+        <button id="retry" class="primary">PLAY AGAIN ↻</button>
+        <button id="home-button" class="secondary">MAIN MENU</button>
+      </div>
+    </section>
+
+    <section id="shop" class="overlay hidden">
+      <div class="panel shop-panel">
+        <button class="close" id="shop-close">×</button>
+        <p class="eyebrow">CUSTOMISE YOUR ROLL</p>
+        <h2>BALL SHOP</h2>
+
+        <div class="wallet shop-wallet">
+          ◈ <b id="shop-coins">0</b> COINS
+        </div>
+
+        <div id="skin-list" class="skin-list"></div>
+      </div>
+    </section>
+
   </main>
-  <script type="module" src="/src/main.js"></script>
+
+  <!-- Error reporting for iPhone debugging -->
+  <script>
+    function showError(message) {
+      let box = document.getElementById('rr2-debug-error');
+
+      if (!box) {
+        box = document.createElement('div');
+        box.id = 'rr2-debug-error';
+
+        Object.assign(box.style, {
+          position: 'fixed',
+          zIndex: '999999',
+          top: '10px',
+          left: '10px',
+          right: '10px',
+          padding: '16px',
+          background: '#500',
+          color: 'white',
+          font: '13px monospace',
+          whiteSpace: 'pre-wrap',
+          overflowWrap: 'anywhere',
+          borderRadius: '10px'
+        });
+
+        document.body.appendChild(box);
+      }
+
+      box.textContent =
+        'RR2 JAVASCRIPT ERROR:\n' + message;
+    }
+
+    window.addEventListener('error', event => {
+      showError(
+        event.message ||
+        'A script failed to load: ' +
+        (event.target?.src || 'unknown file')
+      );
+    }, true);
+
+    window.addEventListener('unhandledrejection', event => {
+      showError(String(event.reason));
+    });
+  </script>
+
+  <script type="module" src="./src/main.js"></script>
 </body>
 </html>
